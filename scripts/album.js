@@ -31,7 +31,6 @@ var setSong = function(songNumber) {
     }
 
     currentlyPlayingSongNumber = parseInt(songNumber);
-    console.log(currentAlbum.songs);
     currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
     // audio
     currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
@@ -138,7 +137,7 @@ var albumImage = document.getElementsByClassName('album-cover-art')[0];
 var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
 var setCurrentAlbum = function(album) {
-    var currentAlbum = album;
+    currentAlbum = album;
     var $albumTitle = $('.album-view-title');
     var $albumArtist = $('.album-view-artist');
     var $albumReleaseInfo = $('.album-view-release-info');
