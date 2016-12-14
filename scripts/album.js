@@ -64,7 +64,7 @@ var createSongRow = function(songNumber, songName, songLength) {
        '<tr class="album-view-song-item">'
      + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
      + '  <td class="song-item-title">' + songName + '</td>'
-     + '  <td class="song-item-duration">' + songLength + '</td>'
+     + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
      + '</tr>'
      ;
  
@@ -165,7 +165,9 @@ var updateSeekBarWhileSongPlays = function() {
             var seekBarFillRatio = this.getTime() / this.getDuration();
             var $seekBar = $('.seek-control .seek-bar');
             
+            setTotalTimeInPlayerBar(this.getDuration());
             updateSeekPercentage($seekBar, seekBarFillRatio);
+            setCurrentTimeInPlayerBar(this.getTime());
         });
     }
 };
@@ -308,6 +310,29 @@ var updatePlayerBarSong = function() {
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
 };
+
+var setCurrentTimeInPlayerBar = function(currentTime) {
+     $('.current-time').html(filterTimeCode(currentTime));
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+    $('.total-time').html(filterTimeCode(totalTime));
+};
+
+var filterTimeCode = function(timeInSeconds) {
+    timeInSeconds = parseFloat(timeInSeconds);
+    var minutes = Math.floor(timeInSeconds / 60);
+    var seconds = Math.floor(timeInSeconds % 60);
+    var timeFormat = "";    
+    timeFormat += "" + minutes + ":" + (seconds < 10 ? "0" : "");
+    timeFormat += "" + seconds;
+    return timeFormat;
+};
+
+//^ Write a function called filterTimeCode that takes one argument, timeInSeconds. It should:
+//Use the parseFloat() method to get the seconds in number form.
+//Store variables for whole seconds and whole minutes (hint: use Math.floor() to round numbers down).
+//Return the time in the format X:XX
 
 var index = 1;
      
